@@ -8,6 +8,7 @@ public class GroundSpawner : MonoBehaviour
 
     public void SpawnTile(bool spawnItems)
     {
+        // This quaternion corresponds to "no rotation" - the object is perfectly aligned with the world or parent axes.
         GameObject temp = Instantiate(groundTile, nextSpawnPoint, Quaternion.identity);
         nextSpawnPoint = temp.transform.GetChild(1).transform.position;
 
