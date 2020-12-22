@@ -28,6 +28,21 @@ public class GroundTIle : MonoBehaviour
         int obstacleSpawnIndex = Random.Range(2, 5);
         Transform spawnPoint = transform.GetChild(obstacleSpawnIndex).transform;
 
+        // y reprezinta intaltimea obstacolului
+        float y;
+        if (obstacleSpawnIndex % 2 == 0)
+        {
+            y = 3;
+        }
+        else
+        {
+            y = 1;
+        }
+
+        // Vector care contine x, z ale obstacolului si y pe care l am ales mai sus
+        Vector3 obstacleScale = new Vector3(obstaclePrefab.transform.localScale.x, y, obstaclePrefab.transform.localScale.z);
+        obstaclePrefab.transform.localScale = obstacleScale;
+
         // Spawn the obstacle at the position
         Instantiate(obstaclePrefab, spawnPoint.position, Quaternion.identity, transform);
     }
