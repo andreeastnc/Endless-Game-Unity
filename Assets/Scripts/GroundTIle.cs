@@ -4,8 +4,9 @@ public class GroundTIle : MonoBehaviour
 {
 
     GroundSpawner groundSpawner;
-    [SerializeField] GameObject coinPrefab;
-    [SerializeField] GameObject obstaclePrefab;
+    // Initializat cu null ca sa nu mai primim warning in unity
+    [SerializeField] GameObject coinPrefab = null;
+    [SerializeField] GameObject obstaclePrefab = null;
 
 
     // Start is called before the first frame update

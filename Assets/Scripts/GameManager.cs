@@ -7,10 +7,11 @@ public class GameManager : MonoBehaviour
 {
     int score;
     public static GameManager inst;
+    
+    // Initializat cu null ca sa nu mai primim warning in unity
+    [SerializeField] Text scoreText = null;
 
-    [SerializeField] Text scoreText;
-
-    [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] PlayerMovement playerMovement = null;
 
     public void IncrementScore()
     {

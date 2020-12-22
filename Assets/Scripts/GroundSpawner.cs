@@ -2,8 +2,8 @@
 
 public class GroundSpawner : MonoBehaviour
 {
-
-    [SerializeField] GameObject groundTile;
+    // Initializat cu null ca sa nu mai primim warning in unity
+    [SerializeField] GameObject groundTile = null;
     Vector3 nextSpawnPoint;
 
     public void SpawnTile(bool spawnItems)

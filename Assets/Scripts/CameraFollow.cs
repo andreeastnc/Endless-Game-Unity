@@ -2,8 +2,8 @@
 
 public class CameraFollow : MonoBehaviour 
 {
-
-    [SerializeField] Transform player;
+    // Initializat cu null ca sa nu mai primim warning in unity
+    [SerializeField] Transform player = null;
     Vector3 offset;
 
     // Start is called before the first frame update

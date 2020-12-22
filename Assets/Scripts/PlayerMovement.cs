@@ -6,12 +6,15 @@ public class PlayerMovement : MonoBehaviour
     bool alive = true;
             
     public float speed = 5;
-    [SerializeField] Rigidbody rb;
+    // Initializat cu null ca sa nu mai primim warning in unity
+    [SerializeField] Rigidbody rb = null;
 
     float horizontalInput;
     [SerializeField] float horizontalMultiplier = 2;
 
     public float speedIncreasePerPoint = 0.1f;
+    public float jumpHeight = 7.5f;
+    bool isOnGround;
 
     private void FixedUpdate()
     {
@@ -20,6 +23,12 @@ public class PlayerMovement : MonoBehaviour
         Vector3 forwardMove = transform.forward * speed * Time.fixedDeltaTime;
         Vector3 horizontalMove = transform.right * horizontalInput * speed * Time.fixedDeltaTime * horizontalMultiplier;
         rb.MovePosition(rb.position + forwardMove + horizontalMove);
+
+        // Daca player este pe sol si apasa space atunci sare
+        if (isOnGround && Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
+        }
     }
 
     // Update is called once per frame
@@ -43,5 +52,17 @@ public class PlayerMovement : MonoBehaviour
     void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void OnCollisionStay (Collision collisionInfo)
+    {
+        // Daca player este la sol
+        isOnGround = true;
+    }
+    
+    void OnCollisionExit (Collision collisionInfo)
+    {
+        // Daca player este in aer
+        isOnGround = false;
     }
 }
