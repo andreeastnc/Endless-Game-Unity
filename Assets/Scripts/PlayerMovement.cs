@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + forwardMove + horizontalMove);
 
         // Daca player este pe sol si apasa space atunci sare
-        if (isOnGround && Input.GetKeyUp(KeyCode.Space))
+        if (isOnGround && Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
         }
