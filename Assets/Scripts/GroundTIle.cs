@@ -41,10 +41,19 @@ public class GroundTIle : MonoBehaviour
 
         // Vector care contine x, z ale obstacolului si y pe care l am ales mai sus
         Vector3 obstacleScale = new Vector3(obstaclePrefab.transform.localScale.x, y, obstaclePrefab.transform.localScale.z);
+        // Ar fi o idee sa nu modificam prefab ul, ci sa memoram game objectul dupa instantiere si sa modificam atunci
         obstaclePrefab.transform.localScale = obstacleScale;
 
         // Spawn the obstacle at the position
         Instantiate(obstaclePrefab, spawnPoint.position, Quaternion.identity, transform);
+
+        // N am stiut exact unde sa pun asta dar aici se spawneaza cu o frecventa decenta :))
+        int score = GameManager.inst.GetScore();
+        if (score == 0) { return; }
+        if (score % 5 == 0)
+        {
+            SpawnPowerUp();
+        }
     }
 
 
@@ -60,8 +69,18 @@ public class GroundTIle : MonoBehaviour
 
     public void SpawnPowerUp()
     {
+        // Deoarece script ul ruleaza de mai multe ori la momentul in care scorul ajunge la 
+        // valoarea pentru a spawna un powerups, este nevoie sa verificam ca nu exista altul
+        var numberOfPowerUpsActive = GameObject.FindGameObjectsWithTag("PowerUp").Length;
+        if (numberOfPowerUpsActive != 0)
+        {
+            return;
+        }
+
         GameObject temp = Instantiate(powerUpPrefab, transform);
-        temp.transform.position = GetRandomPointInCollider(GetComponent<Collider>());
+        // Mutam power up ul mai in fata cu 50 de unitati ca sa fie in fata player ului
+        var transformPosition = GetRandomPointInCollider(GetComponent<Collider>());
+        temp.transform.position = transformPosition;
     }
 
     Vector3 GetRandomPointInCollider (Collider collider)
@@ -79,13 +98,5 @@ public class GroundTIle : MonoBehaviour
 
         point.y = 1;
         return point;
-    }
-
-    void Update()
-    {
-        if (GameManager.inst.GetScore() % 25 == 0)
-        {
-            SpawnPowerUp();
-        }
     }
 }

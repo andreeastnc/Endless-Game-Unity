@@ -5,27 +5,28 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     [SerializeField] float turnSpeed = 90f;
-    string[] PowerUps = new string[] { "Speed+", "Jump+" };
+    public int typeOfPowerUp;
 
-    // Decidem random ce tip de power up va fi acesta
+    // Start is called before the first frame update
     void Start()
     {
-        var typeOfPowerUp = Random.Range(0, 2);
-        Debug.Log(PowerUps[typeOfPowerUp]);
+        // Decidem random ce tip de power up va fi si modificam obiectul
+        typeOfPowerUp = Random.Range(1, 2);
+        Renderer rend = gameObject.GetComponent<Renderer>();
 
         switch (typeOfPowerUp)
         {
-            // Speed+
-            case 0:
-                break;
-            // Jump+
             case 1:
+                rend.material.color = Color.red;
                 break;
-                
-        }
 
+            case 2:
+                rend.material.color = Color.blue;
+                break;
+        }
     }
 
+    // Update is called once per frame
     void Update()
     {
         transform.Rotate(0, 0, turnSpeed * Time.deltaTime);
@@ -33,7 +34,7 @@ public class PowerUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if powerup spawned inside an obstacle
+        // Check if object spawned inside an obstacle
         if (other.gameObject.GetComponent<Obstacle>() != null)
         {
             Destroy(gameObject);
@@ -44,6 +45,16 @@ public class PowerUp : MonoBehaviour
         if (other.gameObject.name != "Player")
         {
             return;
+        }
+
+        switch (typeOfPowerUp)
+        {
+            case 1:
+                // Speed Boost
+                break;
+            case 2:
+                // Jump Boost
+                break;
         }
 
         // Destroy this object

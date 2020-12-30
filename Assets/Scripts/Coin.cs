@@ -20,7 +20,6 @@ public class Coin : MonoBehaviour
         {
             return;
         }
-
         // Add to the player's score
         GameManager.inst.IncrementScore();
 
