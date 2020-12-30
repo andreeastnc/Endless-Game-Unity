@@ -7,6 +7,7 @@ public class GroundTIle : MonoBehaviour
     // Initializat cu null ca sa nu mai primim warning in unity
     [SerializeField] GameObject coinPrefab = null;
     [SerializeField] GameObject obstaclePrefab = null;
+    [SerializeField] GameObject powerUpPrefab = null;
 
     // Start is called before the first frame update
     void Start()
@@ -61,20 +62,6 @@ public class GroundTIle : MonoBehaviour
     {
         GameObject temp = Instantiate(powerUpPrefab, transform);
         temp.transform.position = GetRandomPointInCollider(GetComponent<Collider>());
-
-        int typeOfPowerUp = Random.Range(0, 2);
-        switch (typeOfPowerUp)
-        {
-            case 0:
-                temp.renderer.material.color = Color.blue;
-
-                break;
-            case 1:
-                temp.renderer.material.color = Color.red;
-
-                break;
-        }
-
     }
 
     Vector3 GetRandomPointInCollider (Collider collider)
@@ -98,7 +85,6 @@ public class GroundTIle : MonoBehaviour
     {
         if (GameManager.inst.GetScore() % 25 == 0)
         {
-            Debug.Log("12300");
             SpawnPowerUp();
         }
     }

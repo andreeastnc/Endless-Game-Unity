@@ -4,10 +4,8 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - coinPrefab: {fileID: 9060288779484072620, guid: 416d0c19a28d0824fb58c259c6893c09,
-      type: 3}
-  - obstaclePrefab: {fileID: 6166753822335345312, guid: ff7a492a63f148f458dc6f2406fc9bb6,
-      type: 3}
+  - coinPrefab: {instanceID: 0}
+  - obstaclePrefab: {instanceID: 0}
   - powerUpPrefab: {fileID: 3168532257221031215, guid: bdf92ac20134f5c4691fb44adf8ec6ed,
       type: 3}
   executionOrder: 0
