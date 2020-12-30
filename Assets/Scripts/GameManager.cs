@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text scoreText = null;
 
     [SerializeField] PlayerMovement playerMovement = null;
+    GroundTIle groundTIle;
 
     public void IncrementScore()
     {
@@ -22,20 +23,21 @@ public class GameManager : MonoBehaviour
         playerMovement.speed += playerMovement.speedIncreasePerPoint;
     }
 
+    public int GetScore()
+    {
+        return score;
+    }
+
     private void Awake()
     {
         inst = this;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
     }
 }

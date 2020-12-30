@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public float speedIncreasePerPoint = 0.1f;
     public float jumpHeight = 7.5f;
     bool isOnGround;
+    bool canJump = false;
 
     private void FixedUpdate()
     {
@@ -24,11 +25,12 @@ public class PlayerMovement : MonoBehaviour
         Vector3 horizontalMove = transform.right * horizontalInput * speed * Time.fixedDeltaTime * horizontalMultiplier;
         rb.MovePosition(rb.position + forwardMove + horizontalMove);
 
-        // Daca player este pe sol si apasa space atunci sare
-        if (isOnGround && Input.GetKeyDown(KeyCode.Space))
+        if (canJump) 
         {
+            canJump = false;
             rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
         }
+
     }
 
     // Update is called once per frame
@@ -39,6 +41,12 @@ public class PlayerMovement : MonoBehaviour
         if (transform.position.y < -5)
         {
             Die();
+        }
+
+        // Daca player este pe sol si apasa space atunci sare
+        if (isOnGround && Input.GetKeyDown(KeyCode.Space))
+        {
+            canJump = true;
         }
     }
 

@@ -8,6 +8,7 @@ public class Coin : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Check if coin spawned inside an obstacle
         if(other.gameObject.GetComponent<Obstacle>() != null)
         {
             Destroy(gameObject);

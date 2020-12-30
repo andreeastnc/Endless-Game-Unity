@@ -7,7 +7,7 @@ public class GroundTIle : MonoBehaviour
     // Initializat cu null ca sa nu mai primim warning in unity
     [SerializeField] GameObject coinPrefab = null;
     [SerializeField] GameObject obstaclePrefab = null;
-
+    [SerializeField] GameObject powerUpPrefab = null;
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +58,12 @@ public class GroundTIle : MonoBehaviour
         }
     }
 
+    public void SpawnPowerUp()
+    {
+        GameObject temp = Instantiate(powerUpPrefab, transform);
+        temp.transform.position = GetRandomPointInCollider(GetComponent<Collider>());
+    }
+
     Vector3 GetRandomPointInCollider (Collider collider)
     {
         Vector3 point = new Vector3(
@@ -73,5 +79,13 @@ public class GroundTIle : MonoBehaviour
 
         point.y = 1;
         return point;
+    }
+
+    void Update()
+    {
+        if (GameManager.inst.GetScore() % 25 == 0)
+        {
+            SpawnPowerUp();
+        }
     }
 }
