@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3168532257221031187}
   - component: {fileID: 3168532257221031186}
   - component: {fileID: 3168532257221031213}
-  - component: {fileID: 3168532257221031212}
+  - component: {fileID: 6975155690040833760}
   m_Layer: 0
   m_Name: PowerUp
   m_TagString: Untagged
@@ -94,7 +94,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3168532257221031212
+--- !u!114 &6975155690040833760
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3168532257221031215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca3e13460fbe7b44483aba3b4c3b2d00, type: 3}
+  m_Script: {fileID: 11500000, guid: bfe661069914b2c4aab6ed5993c47be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 90
