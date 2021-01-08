@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float horizontalMultiplier = 2;
 
     public float speedIncreasePerPoint = 0.1f;
-    public float jumpHeight = 7.5f;
+    public float jumpHeight = 5;
     bool isOnGround;
     bool canJump = false;
 
@@ -72,5 +72,15 @@ public class PlayerMovement : MonoBehaviour
     {
         // Daca player este in aer
         isOnGround = false;
+    }
+
+    public void setPlayerSpeed(float newSpeed = 5.0f)
+    {
+        speed = newSpeed;
+    }
+
+    public void setPlayerJumpHeight(float newJumpHeight = 5)
+    {
+        jumpHeight = newJumpHeight;
     }
 }

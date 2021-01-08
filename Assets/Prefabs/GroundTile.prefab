@@ -190,7 +190,7 @@ MonoBehaviour:
     type: 3}
   obstaclePrefab: {fileID: 6166753822335345312, guid: ff7a492a63f148f458dc6f2406fc9bb6,
     type: 3}
-  powerUpPrefab: {fileID: 3168532257221031215, guid: bdf92ac20134f5c4691fb44adf8ec6ed,
+  powerUpPrefab: {fileID: 3168532257221031215, guid: 87d9df412151980439bc6cbf3ed1fb25,
     type: 3}
 --- !u!1 &1354497390166456993
 GameObject:
