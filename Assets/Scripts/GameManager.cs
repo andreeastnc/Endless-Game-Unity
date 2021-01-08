@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     
     // Initializat cu null ca sa nu mai primim warning in unity
     [SerializeField] Text scoreText = null;
+    [SerializeField] Text highScoreText = null;
 
     [SerializeField] PlayerMovement playerMovement = null;
     GroundTIle groundTIle;
@@ -21,6 +22,9 @@ public class GameManager : MonoBehaviour
 
         // Increase the player's speed
         playerMovement.speed += playerMovement.speedIncreasePerPoint;
+
+        // Nu stiu unde sa  pun :)))
+        checkHighScore();
     }
 
     public int GetScore()
@@ -33,11 +37,18 @@ public class GameManager : MonoBehaviour
         inst = this;
     }
 
+
     void Start()
     {
+        highScoreText.text = "Highscore: " + PlayerPrefs.GetInt("Highscore", 2).ToString();
     }
 
-    void Update()
+    public void checkHighScore()
     {
+        int highScore = PlayerPrefs.GetInt("Highscore", 0);
+        if (score > highScore)
+        {
+            PlayerPrefs.SetInt("Highscore", score);
+        }
     }
 }
