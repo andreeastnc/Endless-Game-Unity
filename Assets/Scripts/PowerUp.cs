@@ -17,7 +17,6 @@ public class PowerUp : MonoBehaviour
 
         // Decidem random ce tip de power up va fi si modificam obiectul
         typeOfPowerUp = Random.Range(1, 4);
-        typeOfPowerUp = 1;
         Renderer rend = gameObject.GetComponent<Renderer>();
 
         // Decidem cum va arata power up il inainte de instantiere

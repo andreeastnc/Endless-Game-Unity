@@ -40,13 +40,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        highScoreText.text = "Highscore: " + PlayerPrefs.GetInt("Highscore", 2).ToString();
+        highScoreText.text = "Highscore: " + PlayerPrefs.GetInt("Highscore", 0).ToString();
     }
 
     public void checkHighScore()
     {
         int highScore = PlayerPrefs.GetInt("Highscore", 0);
-        if (score > highScore)
+        if (score >= highScore)
         {
             PlayerPrefs.SetInt("Highscore", score);
         }
