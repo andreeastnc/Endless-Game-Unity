@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     bool alive = true;
-            
+
     public float speed = 5;
     // Initializat cu null ca sa nu mai primim warning in unity
     [SerializeField] Rigidbody rb = null;
@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 5;
     bool isOnGround;
     bool canJump = false;
+    bool hasDoubleJump = false;
 
     private void FixedUpdate()
     {
@@ -25,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 horizontalMove = transform.right * horizontalInput * speed * Time.fixedDeltaTime * horizontalMultiplier;
         rb.MovePosition(rb.position + forwardMove + horizontalMove);
 
-        if (canJump) 
+        if (canJump)
         {
             canJump = false;
             rb.AddForce(0, jumpHeight, 0, ForceMode.Impulse);
@@ -43,8 +44,9 @@ public class PlayerMovement : MonoBehaviour
             Die();
         }
 
-        // Daca player este pe sol si apasa space atunci sare
-        if (isOnGround && Input.GetKeyDown(KeyCode.Space))
+        bool spacePressed = Input.GetKeyDown(KeyCode.Space);
+        // Daca player este pe sol (sau are double jump) si apasa space atunci sare
+        if ((isOnGround || hasDoubleJump) && spacePressed)
         {
             canJump = true;
         }
@@ -62,13 +64,13 @@ public class PlayerMovement : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    void OnCollisionStay (Collision collisionInfo)
+    void OnCollisionStay(Collision collisionInfo)
     {
         // Daca player este la sol
         isOnGround = true;
     }
-    
-    void OnCollisionExit (Collision collisionInfo)
+
+    void OnCollisionExit(Collision collisionInfo)
     {
         // Daca player este in aer
         isOnGround = false;
@@ -82,5 +84,10 @@ public class PlayerMovement : MonoBehaviour
     public void setPlayerJumpHeight(float newJumpHeight = 5)
     {
         jumpHeight = newJumpHeight;
+    }
+
+    public void setDoubleJump(bool doubleJump)
+    {
+        hasDoubleJump = doubleJump;
     }
 }
