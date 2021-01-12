@@ -16,7 +16,8 @@ public class PowerUp : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerMovement>();
 
         // Decidem random ce tip de power up va fi si modificam obiectul
-        typeOfPowerUp = Random.Range(1, 3);
+        typeOfPowerUp = Random.Range(1, 4);
+        typeOfPowerUp = 1;
         Renderer rend = gameObject.GetComponent<Renderer>();
 
         // Decidem cum va arata power up il inainte de instantiere
@@ -24,12 +25,16 @@ public class PowerUp : MonoBehaviour
         {
             case 1:
                 // Jump boost
-                rend.material.color = Color.red;
+                rend.material.color = Color.magenta;
                 break;
 
             case 2:
                 // Speed boost
                 rend.material.color = Color.blue;
+                break;
+            case 3:
+                // Double Jump
+                rend.material.color = Color.yellow;
                 break;
         }
     }
@@ -55,24 +60,27 @@ public class PowerUp : MonoBehaviour
             return;
         }
 
+        // pt. a ascunde obiectul, deoarece se distruge dupa buffDuration secunde
+        gameObject.transform.localScale = new Vector3(0, 0, 0);
+
         switch (typeOfPowerUp)
         {
             case 1:
                 // Jump boost
-                // pt. a ascunde obiectul, deoarece se distruge dupa buffDuration secunde
-                gameObject.transform.localScale = new Vector3(0, 0, 0);
                 player.setPlayerJumpHeight(8);
                 StartCoroutine(startJumpBoost());
                 break;
             case 2:
                 // Speed boost
-                // pt. a ascunde obiectul, deoarece se distruge dupa buffDuration secunde
-                gameObject.transform.localScale = new Vector3(0, 0, 0);
                 // Memoram viteza actuala in oldSpeed
                 var oldSpeed = player.speed;
                 // Marim viteza player-ului cu 50%
                 player.setPlayerSpeed(oldSpeed * 1.50f);
                 StartCoroutine(startSpeedBoost(oldSpeed));
+                break;
+            case 3:
+                player.setDoubleJump(true);
+                StartCoroutine(startDoubleJumpBoost());
                 break;
 
             default:
@@ -113,5 +121,17 @@ public class PowerUp : MonoBehaviour
     {
         yield return new WaitForSeconds(this.buffDurationInSeconds);
         undoPlayerJumpBoost();
+    }
+
+    void undoPlayerDoubleJumpBoost()
+    {
+        player.setDoubleJump(false);
+        Destroy(gameObject);
+    }
+
+    IEnumerator startDoubleJumpBoost()
+    {
+        yield return new WaitForSeconds(this.buffDurationInSeconds);
+        undoPlayerDoubleJumpBoost();
     }
 }

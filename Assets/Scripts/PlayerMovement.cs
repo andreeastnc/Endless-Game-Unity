@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 5;
     bool isOnGround;
     bool canJump = false;
+    bool hasDoubleJump = false;
 
     private void FixedUpdate()
     {
@@ -43,8 +44,9 @@ public class PlayerMovement : MonoBehaviour
             Die();
         }
 
-        // Daca player este pe sol si apasa space atunci sare
-        if (isOnGround && Input.GetKeyDown(KeyCode.Space))
+        bool spacePressed = Input.GetKeyDown(KeyCode.Space);
+        // Daca player este pe sol (sau are double jump) si apasa space atunci sare
+        if ((isOnGround || hasDoubleJump) && spacePressed)
         {
             canJump = true;
         }
@@ -82,5 +84,10 @@ public class PlayerMovement : MonoBehaviour
     public void setPlayerJumpHeight(float newJumpHeight = 5)
     {
         jumpHeight = newJumpHeight;
+    }
+
+    public void setDoubleJump(bool doubleJump)
+    {
+        hasDoubleJump = doubleJump;
     }
 }
