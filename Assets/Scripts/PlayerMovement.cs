@@ -55,8 +55,14 @@ public class PlayerMovement : MonoBehaviour
     public void Die()
     {
         alive = false;
-        //Restart the game
-        Invoke("Restart", 2);
+        // Go back to start menu
+        Invoke("GoToStartScreen", 2);
+    }
+
+    void GoToStartScreen()
+    {
+        SceneManager.LoadScene("StartScreen");
+
     }
 
     void Restart()
