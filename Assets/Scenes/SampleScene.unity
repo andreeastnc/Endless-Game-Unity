@@ -628,7 +628,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -646,6 +646,7 @@ GameObject:
   - component: {fileID: 1424335830}
   - component: {fileID: 1424335829}
   - component: {fileID: 1424335834}
+  - component: {fileID: 1424335835}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -761,6 +762,21 @@ MonoBehaviour:
   horizontalMultiplier: 1.75
   speedIncreasePerPoint: 0.1
   jumpHeight: 5
+--- !u!114 &1424335835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424335828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e19da6a22259d4299a67d51a3c65f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 600
+  turnSpeed: 400
+  gravity: 20
 --- !u!1 &1484914831
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,6 +852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 392682771}
+  highScoreText: {fileID: 0}
   playerMovement: {fileID: 1424335834}
 --- !u!4 &2030925571
 Transform:
