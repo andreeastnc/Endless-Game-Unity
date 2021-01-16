@@ -8,7 +8,6 @@ public class PowerUp : MonoBehaviour
     // TypeOfPowerUp va primi o valoare random de la 1 la nr. de power ups - 1
     public int typeOfPowerUp;
     private PlayerMovement player;
-    private int buffDurationInSeconds = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -67,19 +66,14 @@ public class PowerUp : MonoBehaviour
             case 1:
                 // Jump boost
                 player.setPlayerJumpHeight(8);
-                StartCoroutine(startJumpBoost());
                 break;
             case 2:
                 // Speed boost
-                // Memoram viteza actuala in oldSpeed
-                var oldSpeed = player.speed;
                 // Marim viteza player-ului cu 50%
-                player.setPlayerSpeed(oldSpeed * 1.50f);
-                StartCoroutine(startSpeedBoost(oldSpeed));
+                player.setPlayerSpeed(player.speed * 1.50f);
                 break;
             case 3:
                 player.setDoubleJump(true);
-                StartCoroutine(startDoubleJumpBoost());
                 break;
 
             default:
@@ -88,49 +82,5 @@ public class PowerUp : MonoBehaviour
                 Destroy(gameObject);
                 break;
         }
-    }
-
-    void undoPlayerSpeedBuff(float oldSpeed)
-    {
-        // Setam viteza player-ului 
-        player.setPlayerSpeed(5);
-        // Destroy this object
-        Destroy(gameObject);
-    }
-
-    IEnumerator startSpeedBoost(float oldSpeed)
-    {
-        // Asteptam buffDuration secunde dupa care revenim 
-        // la viteza pe care o avea player-ul cand a luat boost-ul,
-        // astfel incat monedele luate pe durata buff-ului conteaza doar la scor.
-        yield return new WaitForSeconds(this.buffDurationInSeconds);
-        undoPlayerSpeedBuff(oldSpeed);
-    }
-
-    void undoPlayerJumpBoost()
-    {
-        // Functia apelata fara parmetrii pune val. default
-        player.setPlayerJumpHeight();
-        // Destroy this object
-        Destroy(gameObject);
-
-    }
-
-    IEnumerator startJumpBoost()
-    {
-        yield return new WaitForSeconds(this.buffDurationInSeconds);
-        undoPlayerJumpBoost();
-    }
-
-    void undoPlayerDoubleJumpBoost()
-    {
-        player.setDoubleJump(false);
-        Destroy(gameObject);
-    }
-
-    IEnumerator startDoubleJumpBoost()
-    {
-        yield return new WaitForSeconds(this.buffDurationInSeconds);
-        undoPlayerDoubleJumpBoost();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     bool isOnGround;
     bool canJump = false;
     bool hasDoubleJump = false;
+    private int buffDurationInSeconds = 10;
 
     private void FixedUpdate()
     {
@@ -78,16 +80,59 @@ public class PlayerMovement : MonoBehaviour
 
     public void setPlayerSpeed(float newSpeed = 5.0f)
     {
+        var oldSpeed = speed;
         speed = newSpeed;
+        StartCoroutine(startSpeedBoost(oldSpeed));
+    }
+
+    IEnumerator startSpeedBoost(float oldSpeed)
+    {
+        // Asteptam buffDuration secunde dupa care revenim 
+        // la viteza pe care o avea player-ul cand a luat boost-ul,
+        // astfel incat monedele luate pe durata buff-ului conteaza doar la scor.
+        yield return new WaitForSeconds(buffDurationInSeconds);
+        undoPlayerSpeedBuff(oldSpeed);
+    }
+
+    void undoPlayerSpeedBuff(float oldSpeed)
+    {
+        // Setam viteza player-ului 
+        setPlayerSpeed(5);
     }
 
     public void setPlayerJumpHeight(float newJumpHeight = 5)
     {
         jumpHeight = newJumpHeight;
+        StartCoroutine(startJumpBoost(buffDurationInSeconds));
+    }
+
+    void undoPlayerJumpBoost()
+    {
+        // Functia apelata fara parmetrii pune val. default
+        setPlayerJumpHeight();
+    }
+
+    IEnumerator startJumpBoost(int buffDurationInSeconds)
+    {
+        yield return new WaitForSeconds(buffDurationInSeconds);
+        undoPlayerJumpBoost();
     }
 
     public void setDoubleJump(bool doubleJump)
     {
         hasDoubleJump = doubleJump;
+        StartCoroutine(startDoubleJumpBoost());
     }
+
+    IEnumerator startDoubleJumpBoost()
+    {
+        yield return new WaitForSeconds(buffDurationInSeconds);
+        undoPlayerDoubleJumpBoost();
+    }
+
+    void undoPlayerDoubleJumpBoost()
+    {
+        setDoubleJump(false);
+    }
+
 }

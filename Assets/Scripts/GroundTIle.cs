@@ -49,8 +49,7 @@ public class GroundTIle : MonoBehaviour
 
         // N am stiut exact unde sa pun asta dar aici se spawneaza cu o frecventa decenta :))
         int score = GameManager.inst.GetScore();
-        if (score == 0) { return; }
-        if (score % 5 == 0)
+        if (score % 5 == 0 && score != 0)
         {
             SpawnPowerUp();
         }
@@ -78,7 +77,6 @@ public class GroundTIle : MonoBehaviour
         }
 
         GameObject temp = Instantiate(powerUpPrefab, transform);
-        // Mutam power up ul mai in fata cu 50 de unitati ca sa fie in fata player ului
         var transformPosition = GetRandomPointInCollider(GetComponent<Collider>());
         temp.transform.position = transformPosition;
     }
