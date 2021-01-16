@@ -43,12 +43,32 @@ public class GameManager : MonoBehaviour
         highScoreText.text = "Highscore: " + PlayerPrefs.GetInt("Highscore", 0).ToString();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Pause();
+        }
+    }
+
+    public void Pause()
+    {
+        if (Time.timeScale == 1)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+    }
+
     public void checkHighScore()
     {
         //PlayerPrefs.SetInt("Highscore", 0);
 
-        int highScore = PlayerPrefs.GetInt("Highscore");
-       
+        int highScore = PlayerPrefs.GetInt("Highscore", 0);
+
         if (score > highScore)
         {
             PlayerPrefs.SetInt("Highscore", score);
