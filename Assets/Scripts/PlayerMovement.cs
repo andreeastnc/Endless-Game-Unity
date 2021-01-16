@@ -18,7 +18,8 @@ public class PlayerMovement : MonoBehaviour
     bool isOnGround;
     bool canJump = false;
     bool hasDoubleJump = false;
-    private int buffDurationInSeconds = 10;
+    bool coroutineRunning = false;
+    int buffDurationInSeconds = 10;
 
     private void FixedUpdate()
     {
@@ -48,17 +49,33 @@ public class PlayerMovement : MonoBehaviour
 
         bool spacePressed = Input.GetKeyDown(KeyCode.Space);
         // Daca player este pe sol (sau are double jump) si apasa space atunci sare
-        if ((isOnGround || hasDoubleJump) && spacePressed)
+        if (isOnGround && spacePressed)
         {
             canJump = true;
+        }
+
+        if (!isOnGround && spacePressed && hasDoubleJump)
+        {
+            canJump = true;
+            hasDoubleJump = false;
+        }
+
+        if (isOnGround && coroutineRunning)
+        {
+            hasDoubleJump = true;
         }
     }
 
     public void Die()
     {
         alive = false;
-        //Restart the game
-        Invoke("Restart", 2);
+        // Go back to start menu
+        Invoke("GoToStartScreen", 2);
+    }
+
+    void GoToStartScreen()
+    {
+        SceneManager.LoadScene("StartScreen");
     }
 
     void Restart()
@@ -126,13 +143,14 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator startDoubleJumpBoost()
     {
+        coroutineRunning = true;
         yield return new WaitForSeconds(buffDurationInSeconds);
         undoPlayerDoubleJumpBoost();
+        coroutineRunning = false;
     }
 
     void undoPlayerDoubleJumpBoost()
     {
         setDoubleJump(false);
     }
-
 }
